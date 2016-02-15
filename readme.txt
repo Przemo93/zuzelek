@@ -26,6 +26,6 @@ by Jakub Rózga & Przemysław Rydzyk
 	Drugi z graczy odpala grę poleceniem "./zuzel 2 [IP]" - w miejscu IP należy podać IP serwera.
 	Po podłączeniu klienta do serwera gra się rozpoczyna - serwer rozpoczyna odliczanie, po którym następuje start.
 	Od tej chwili zachodzi między nimi także wymiana informacji o aktualnej pozycji. 
-	Jeżeli któryś z graczy wyjedzie poza tor lub przekroczy linię mety, wysyła odpowiedni sygnał i przestaje wysyłać swoją pozycję.
+	Jeżeli któryś z graczy wyjedzie poza tor lub przekroczy linię mety, wysyła odpowiedni sygnał i, jeśli następuje koniec wyścigu, przestaje wysyłać swoją pozycję.
 	Po odebraniu takiego sygnału drugi z graczy także przestaje wysyłać swoją pozycję.
 	W zależności od zaistniałej sytuacji wyświetlana jest informacja o zwycięstwie lub porażce, i program jest zamykany.
