@@ -43,25 +43,13 @@ struct polozenie{
 std::list<polozenie> polozeniaGracza;
 std::list<polozenie> polozeniaPrzeciwnika;
 
-// 2 funkcje ruchu
+// funkcja od ruchu - zmiana kata
 int zmianaKata(int kat, int bazowaZmianaKata)
 {
 	kat -=bazowaZmianaKata;
 	if(kat<0) kat=+360;
 	return kat;
 }
-
-bool czyOkrazenieSkonczone(int x, int y, bool updown)
-{
-	bool ans;
-	if(x>299 && x<321){
-		if(y>24 && y<96 && updown == true) ans = true;
-		else if(y>206 && y<275 && updown == false) ans = true;
-	}
-	else ans = false;
-	return ans;
-}
-
 
 int server(){
     struct sockaddr_in sck_addr_in;
@@ -161,7 +149,7 @@ int main( int argc, char** argv ){
 	
 	polozenie player, player_temp;
 	
-	int licznikOkrazen=0;
+	int licznikOkrazen=1;
 	double x,y;
 	bool zakonczenie = false;
 	bool kolizja = false;
@@ -225,17 +213,17 @@ int main( int argc, char** argv ){
 			
 			//zmieniamy predkosc i kat w zaleznosci od tego, czy wcisniety jest klawisz
 			if( key[ KEY_LEFT ] ){
-	    		predkosc-=0.05;
-	    		if(predkosc<1.5) predkosc=1.5;
-	    		katSkretu+=0.05;
-	    		if(katSkretu>1.5) katSkretu=1.5;
-            	kierunekPoruszania = zmianaKata(kierunekPoruszania,katSkretu);
+	    			predkosc-=0.1;
+	    			if(predkosc<1.0) predkosc=1.0;
+	    			katSkretu+=0.1;
+	    			if(katSkretu>2) katSkretu=2;
+            			kierunekPoruszania = zmianaKata(kierunekPoruszania,katSkretu);
 	  		}
 	  		else{
-	    		predkosc+=0.05;
-	    		if(predkosc>2) predkosc=2;
-	    		katSkretu-=0.05;
-	    		if(katSkretu<1) katSkretu=1; 
+	    			predkosc+=0.1;
+	    			if(predkosc>3) predkosc=3;
+	    			katSkretu-=0.1;
+	    			if(katSkretu<1) katSkretu=1; 
 	  		}
 			
 	  		//i wyznaczamy nowa pozycje
@@ -245,7 +233,7 @@ int main( int argc, char** argv ){
 	  		player.y+=y;
 			
 			//sprawdzamy, czy okrazenie zostalo ukonczone przez gracza
-	  		if(czyOkrazenieSkonczone((int)player.x,(int)player.y,lap_updown)==true){
+	  		if(getpixel(buffer, (int)player.x, (int)player.y) == makecol(255,255,255)){
 	      			licznikOkrazen++;
 	      			lap_updown = (!lap_updown);
 	  		}
